@@ -3,3 +3,5 @@ djangorestframework==3.11.1
 djangorestframework-simplejwt==4.4.0
 dry-rest-permissions==0.1.10
 drf-yasg==1.17.1
+gunicorn==20.0.4
+whitenoise==5.2.0
