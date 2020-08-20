@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     # Internal apps
     "users",
+    "goals",
 ]
 
 MIDDLEWARE = [
