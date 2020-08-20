@@ -19,6 +19,9 @@ This repo define RESTful API to create and manage your organization's goals.
 python3 -m venv ~/your-python-virtualenvs/goals
 source ~/your-python-virtualenvs/goals/bin/activate
 pip install -r requirements.txt
+# For some reason gunicorn isn't picking up the python virtualenv path without a refresh
+deactivate
+source ~/your-python-virtualenvs/goals/bin/activate
 python3 manage.py migrate
 ```
 
