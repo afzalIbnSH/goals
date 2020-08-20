@@ -6,10 +6,12 @@ from rest_framework import permissions
 from rest_framework.routers import SimpleRouter
 
 from users.views import UserViewSet
+from goals.views import GoalViewSet
 
 
 router = SimpleRouter()
 router.register("users", UserViewSet, basename="users")
+router.register("goals", GoalViewSet, basename="goals")
 
 schema_view = get_schema_view(
     openapi.Info(
