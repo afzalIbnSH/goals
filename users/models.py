@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 
 from enterprise_goals.models import EGBaseModel
-from enterprise_goals.managers import EGDeleteManager, EGUserManager
+from enterprise_goals.managers import EGDeleteManager
+from users.managers import UserManager
 
 
 class Organization(EGBaseModel):
@@ -15,12 +16,14 @@ class Organization(EGBaseModel):
     plan = models.CharField(max_length=16, choices=Plan.choices)
 
 
+class EGUserManager(EGDeleteManager, UserManager):
+    pass
+
+
 class User(AbstractUser, EGBaseModel):
     username = None
     first_name = None
     last_name = None
-    groups = None
-    user_permissions = None
 
     class Role(models.TextChoices):
         ADMIN = "admin", _("Admin user")
@@ -40,3 +43,10 @@ class User(AbstractUser, EGBaseModel):
 
     def __str__(self):
         return self.email
+
+    @staticmethod
+    def has_write_permission(request):
+        return (
+            request.user.organization.plan == Organization.Plan.ENTERPRISE
+            and request.user.role == User.Role.ADMIN
+        )
